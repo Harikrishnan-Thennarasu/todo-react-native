@@ -24,50 +24,46 @@ function Edit({ navigation, route }: any) {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: "#ffff", justifyContent: "space-between" }}>
+        <SafeAreaView style={{
+            flex: 1,
+            flexDirection: "column",
+            backgroundColor: '#fff',
+        }}>
             <View style={styles.header}>
                 <Feather name={'edit'} style={styles.headerIcon} />
                 <Text style={styles.headerText}>Edit Todo</Text>
             </View>
-            <View>
-                <Text style={{ textAlign: "center", fontFamily: "Ubuntu-Regular", fontSize: 20 }}>You can change your todo here</Text>
-                <View
-                    style={{
-                        borderColor: '#ccc',
-                        borderWidth: 1,
-                        margin: 25,
-
-                    }}>
-                    <TextInput
-                        editable
-                        multiline
-                        numberOfLines={4}
-                        maxLength={250}
-                        onChangeText={text => setTodo(text)}
-                        value={todo}
-                        style={{ margin: 20, height: 400 }}
-                    />
+            <View style={styles.content}>
+                <View>
+                    <Text style={{ textAlign: "center", fontFamily: "Ubuntu-Regular", fontSize: 20 }}>You can edit your todo description here</Text>
+                    <View
+                        style={{
+                            borderColor: '#ccc',
+                            borderWidth: 1,
+                            margin: 25,
+                            borderRadius: 10
+                        }}>
+                        <TextInput
+                            editable
+                            multiline
+                            numberOfLines={4}
+                            maxLength={250}
+                            onChangeText={text => setTodo(text)}
+                            value={todo}
+                            style={{ padding: 10, borderRadius: 10 }}
+                        />
+                    </View>
                 </View>
             </View>
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
-                {route?.params?.status == 'PENDING' ?
-                    <TouchableOpacity onPress={handleTodoComplete} style={{ height: 50, width: '60%', backgroundColor: "#4287f5", borderRadius: 5, justifyContent: "center" }}>
-                        <Text style={{ fontFamily: "Ubuntu-Regular", textAlign: "center", color: "#ffff" }}>Click To Complete</Text>
-                    </TouchableOpacity> :
-                    <TouchableOpacity onPress={handleTodoAgain} style={{ height: 50, width: '60%', backgroundColor: "#4287f5", borderRadius: 5, justifyContent: "center" }}>
-                        <Text style={{ fontFamily: "Ubuntu-Regular", textAlign: "center", color: "#ffff" }}>Click To Do Again</Text>
-                    </TouchableOpacity>
-                }
-            </View>
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around" }}>
+            <View style={styles.footer}>
                 <View>
                     <TouchableOpacity onPress={() => navigation.pop()}>
-                        <Text style={{ color: "#4287f5", fontFamily: "Ubuntu-Regular", fontSize: 18 }}>Cancel</Text>
+                        <Text style={{ color: "#ffff", fontFamily: "Ubuntu-Regular", fontSize: 18 }}>Cancel</Text>
                     </TouchableOpacity>
                 </View>
                 <View>
                     <TouchableOpacity onPress={handleUpdateTodo}>
-                        <Text style={{ color: "#4287f5", fontFamily: "Ubuntu-Regular", fontSize: 18 }}>Update</Text>
+                        <Text style={{ color: "#ffff", fontFamily: "Ubuntu-Regular", fontSize: 18 }}>Update</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -86,6 +82,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     header: {
+        minHeight: 60,
         flexDirection: "row",
         backgroundColor: "#4287f5",
         height: "8%",
@@ -104,14 +101,19 @@ const styles = StyleSheet.create({
         color: '#ffff'
     },
     footer: {
+        minHeight: 60,
+        padding: 5,
         flexDirection: "row",
         backgroundColor: "#4287f5",
-        height: "8%",
-        width: "100%"
+        width: "100%",
+        justifyContent: "space-around",
+        alignItems: "center"
     },
     content: {
+        flex: 8.4,
         height: '80%',
-        padding: 20
+        marginHorizontal: 20,
+        justifyContent: "center",
 
     },
     headerText: {
