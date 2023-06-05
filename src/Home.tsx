@@ -7,6 +7,7 @@ import {
     FlatList,
     SafeAreaView,
     TouchableOpacity,
+    ActivityIndicator,
 } from 'react-native';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -23,12 +24,13 @@ import moment from 'moment';
 
 
 function Home({ navigation, state }: any) {
-    const { allTodos } = state;
+    const { allTodos, isLoading } = state;
     const [todo, setTodo]: any = useState('');
+
     const handleAddTodo = () => {
         if (todo) {
             const newTodo = {
-                id: moment().format(),
+                id: moment().toDate().getUTCMilliseconds(),
                 todo: todo,
                 createdAt: moment().format(),
                 status: "PENDING"
@@ -62,7 +64,7 @@ function Home({ navigation, state }: any) {
                 <Text style={styles.headerText}>My Todo List</Text>
             </View>
             <View style={styles.content}>
-                {allTodos?.length > 0 ?
+                {isLoading ? <ActivityIndicator size="large" color="#4287f5" /> : allTodos?.length > 0 ?
                     <FlatList
                         data={allTodos}
                         keyExtractor={(item, index) => index.toString()}
