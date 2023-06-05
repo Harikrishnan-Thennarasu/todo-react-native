@@ -6,6 +6,8 @@ export const onLoadAllDataFromLocal = async () => {
     const localState = await AsyncStorage.getItem('state') || "";
     if (localState) {
         store.dispatch({ type: LOAD_ALL_DATA, data: JSON.parse(localState) });
+    } else {
+        store.dispatch({ type: LOAD_ALL_DATA, data: [] });
     }
 }
 
