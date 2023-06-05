@@ -8,7 +8,7 @@ import {
     SafeAreaView,
     TouchableOpacity,
 } from 'react-native';
-import Entypo from 'react-native-vector-icons/Entypo';
+import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -58,16 +58,17 @@ function Home({ navigation, state }: any) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Entypo name={'list'} style={styles.headerIcon} />
+                <Octicons name={'checklist'} style={styles.headerIcon} />
                 <Text style={styles.headerText}>My Todo List</Text>
             </View>
             <View style={styles.content}>
                 {allTodos?.length > 0 ?
                     <FlatList
                         data={allTodos}
-                        keyExtractor={item => item?.id}
+                        keyExtractor={(item, index) => index.toString()}
+                        showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
-                            <View style={{ flexDirection: "row", marginBottom: 10 }}>
+                            <View style={{ flexDirection: "row", marginVertical: 10 }}>
                                 <View style={{ flex: 1.5, justifyContent: "center", alignItems: "flex-start" }}>
                                     {item?.status == 'COMPLETED' ?
                                         <TouchableOpacity onPress={() => handleTodoPending(item.id)}>
@@ -83,7 +84,6 @@ function Home({ navigation, state }: any) {
                                                 style={{ color: "#8f8f8f", fontSize: 30, textAlign: "left" }}
                                             />
                                         </TouchableOpacity>
-
                                     }
                                 </View>
                                 <View style={styles.todo}>
@@ -153,9 +153,9 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "column",
         backgroundColor: '#fff',
-        justifyContent: 'space-between',
     },
     header: {
+        minHeight: 60,
         flexDirection: "row",
         backgroundColor: "#4287f5",
         height: "8%",
@@ -174,16 +174,17 @@ const styles = StyleSheet.create({
         color: '#ffff'
     },
     footer: {
+        minHeight: 60,
+        padding:5,
         flexDirection: "row",
         backgroundColor: "#4287f5",
-        height: "8%",
         width: "100%"
     },
     content: {
+        flex: 8.4,
         height: '80%',
-        padding: 20,
-        justifyContent: "center"
-
+        marginHorizontal: 20,
+        justifyContent: "center",
     },
     headerText: {
         color: "#ffff",
@@ -191,7 +192,6 @@ const styles = StyleSheet.create({
         fontFamily: "Ubuntu-Medium"
     },
     input: {
-        height: 50,
         paddingHorizontal: 10,
         marginHorizontal: 10,
         borderWidth: 1,
